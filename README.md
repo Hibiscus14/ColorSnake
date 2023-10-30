@@ -36,7 +36,7 @@ here to make sorting your images by color an easy task.</p>
 <h2 id="info">Info</h2>
 <p>This was a fun time to code this program. Hope it was helpfull for you guys) Share this with anyone this program could help, that will mean a lot to me :)<br>
 If you want to support me - <a href="https://www.paypal.com/paypalme/kotoezh">here’s</a> my paypal<br>
-Or you can buy some of my art and/or commision it - <a href="https://hibiscus-comms-eng.carrd.co/">cardd</a></p>
+Or you can buy some of my art and/or commision it - <a href="https://hibiscus-comms-eng.carrd.co/">carrd</a></p>
 <p>Please, don’t modify or distribute this program without my permission to do so.</p>
 <p>This is ny first project after 3 month of learning how to code from the ground up so if you see anything wrong in there - you could let me know in issues tab, and I might fix it later.</p>
 </div>
