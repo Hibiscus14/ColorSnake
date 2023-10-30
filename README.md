@@ -47,7 +47,7 @@ Or you can buy some of my art and/or commision it - <a href="https://hibiscus-co
 
 If while sorting you will choose a different window - the program interface will freeze, but it will continue to work in background
 
-If you try to use a path that contains non english characters the program will crash
+All the files and folders should be in English, otherwise program won't work
 
 </div>
 </body>
