@@ -34,7 +34,7 @@ here to make sorting your images by color an easy task.</p>
 <p>Its a bar, that shows progress. Cool.<br>
 <img src="https://i.ibb.co/vshbhyN/image.png" alt="enter image description here"></p>
 <h2 id="info">Info</h2>
-<p>This was a fun time to code this program. Hope it was helpfull for you guys) Share this with anyone this program could help, that will mean a lot to me :)<br>
+<p>This was a fun time to code this program. Hope it was helpfull for you guys) Share this with anyone this program could help, that will mean a lot to me :)<br><br>
 If you want to support me - <a href="https://www.paypal.com/paypalme/kotoezh">here’s</a> my paypal<br>
 Or you can buy some of my art and/or commision it - <a href="https://hibiscus-comms-eng.carrd.co/">carrd</a></p>
 <p>Please, don’t modify or distribute this program without my permission to do so.</p>
