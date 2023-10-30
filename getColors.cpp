@@ -1,9 +1,17 @@
 #include "mainwindow.h"
 #include <opencv2/opencv.hpp>
 #include <algorithm>
+#include <fstream>
 
+std::ofstream exceptionLog;
+
+void logException(const std::string& message) {
+    exceptionLog << "Exception: " << message << std::endl;
+}
  void getColorsOfAllImages(std::vector<std::pair<std::vector<int>, std::string>>&colorfulImages, std::vector<std::pair<std::vector<int>, std::string>>&grayImages, const std::vector<std::string>& fileNames, bool RoiSelect, const int& hmin,const int& hmax,const int& smin, const int& smax, const int& vmin, const int& vmax,const int& compression, const int& sGray, const int& vGray)
 {
+     exceptionLog.open("exception.log");
+
      cv::Mat firstImage = cv::imread(fileNames[0]);
      cv::Rect2d roi;
      if(RoiSelect)
@@ -17,6 +25,9 @@
 
   for(size_t i = 0; i < fileNames.size(); ++i)
   {
+      count++;
+      progress->setValue(count);
+      try{
       cv::Mat image = cv::imread(fileNames[i]);
       if(image.rows!=firstImage.rows||image.cols!=firstImage.cols)  cv::resize(image, image, firstImage.size());
       if(RoiSelect) { image = image(roi); }
@@ -30,9 +41,21 @@
       else {
           colorfulImages.emplace_back(dominantColor, fileNames[i]);
       }
-    count++;
-    progress->setValue(count);
+
+
+  } catch (const cv::Exception& e) {
+              // Handle OpenCV exceptions
+              // Log the exception or continue processing other images
+           logException(e.what());
+              continue;
+          } catch (const std::exception& e) {
+              // Handle other exceptions
+              // Log the exception or continue processing other images
+          logException(e.what());
+              continue;
+          }
   }
+  exceptionLog.close();
 }
 
 

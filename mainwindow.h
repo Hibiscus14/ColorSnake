@@ -61,7 +61,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     bool dark = false;
-    bool rus = true;
+    bool rus = false;
 
 };
 #endif // MAINWINDOW_H

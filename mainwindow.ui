@@ -30,7 +30,7 @@
     <item row="2" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>Оптимизация</string>
+       <string>Optimization</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>
@@ -45,7 +45,7 @@
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Параметры маски</string>
+         <string>Mask settings</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -148,7 +148,7 @@
       <item row="0" column="4" colspan="2">
        <widget class="QLabel" name="label_12">
         <property name="text">
-         <string>Отсечение Ч/Б</string>
+         <string>Clipping B/W</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -208,7 +208,7 @@
       <item>
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Сжатие</string>
+         <string>Compression</string>
         </property>
        </widget>
       </item>
@@ -272,7 +272,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Выделение области</string>
+         <string>Custom selection</string>
         </property>
        </widget>
       </item>
@@ -302,7 +302,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Отсортировать</string>
+         <string>Sort</string>
         </property>
        </widget>
       </item>
@@ -330,7 +330,7 @@
         </property>
         <property name="icon">
          <iconset resource="resours.qrc">
-          <normaloff>:/new/prefix1/img/EngDark.png</normaloff>:/new/prefix1/img/EngDark.png</iconset>
+          <normaloff>:/new/prefix1/img/RuDark.png</normaloff>:/new/prefix1/img/RuDark.png</iconset>
         </property>
        </widget>
       </item>
@@ -388,28 +388,28 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Загрузить из:</string>
+         <string>Input Folder</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="inputFolderButton">
         <property name="text">
-         <string>Обзор</string>
+         <string>Browse</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="outputFolderButton">
         <property name="text">
-         <string>Обзор</string>
+         <string>Browse</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Сохранить в:</string>
+         <string>Output Folder</string>
         </property>
        </widget>
       </item>
