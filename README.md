@@ -45,9 +45,9 @@ Or you can buy some of my art and/or commision it - <a href="https://hibiscus-co
 
  
 
-If while sorting you will choose a different window - the program interface will freeze, but it will continue to work in background
+If while sorting you will choose a different window - the program interface will freeze, but it will continue to work in background. The same effect might take place if you are trying to sort a big ammount of immages.
 
-All the files and folders should be in English, otherwise program won't work
+All the files and folders should be in English, otherwise program won't work.
 
 </div>
 </body>
