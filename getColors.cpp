@@ -2,31 +2,37 @@
 #include <opencv2/opencv.hpp>
 #include <algorithm>
 #include <fstream>
-
+#include <thread>
 std::ofstream exceptionLog;
 
 void logException(const std::string& message) {
     exceptionLog << "Exception: " << message << std::endl;
 }
- void getColorsOfAllImages(std::vector<std::pair<std::vector<int>, std::string>>&colorfulImages, std::vector<std::pair<std::vector<int>, std::string>>&grayImages, const std::vector<std::string>& fileNames, bool RoiSelect, const int& hmin,const int& hmax,const int& smin, const int& smax, const int& vmin, const int& vmax,const int& compression, const int& sGray, const int& vGray)
+
+void getColorsOfAllImages(std::vector<std::pair<std::vector<int>, std::string>>&colorfulImages, std::vector<std::pair<std::vector<int>, std::string>>&grayImages, const std::vector<std::string>& fileNames, bool RoiSelect, const int& hmin,const int& hmax,const int& smin, const int& smax, const int& vmin, const int& vmax,const int& compression, const int& sGray, const int& vGray)
 {
      exceptionLog.open("exception.log");
 
      cv::Mat firstImage = cv::imread(fileNames[0]);
+ 
      cv::Rect2d roi;
+     
      if(RoiSelect)
      {
      cv::namedWindow("Select ROI", cv::WND_PROP_FULLSCREEN);
      cv::setWindowProperty("Select ROI", cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-     cv::resizeWindow("Select ROI", 700, 700);
+     int wh = 700;
+     int ww = static_cast<int>(wh * static_cast<double>(firstImage.cols) / firstImage.rows);
+     cv::resizeWindow("Select ROI", ww, wh );
      roi = cv::selectROI("Select ROI", firstImage,true, false );
      cv::destroyAllWindows();
      }
 
-  for(size_t i = 0; i < fileNames.size(); ++i)
+     int threadSize = fileNames.size()/4;
+
+     std::thread th([&]() {for(size_t i = 0; i < threadSize; ++i)
   {
       count++;
-      progress->setValue(count);
       try{
       cv::Mat image = cv::imread(fileNames[i]);
       if(image.rows!=firstImage.rows||image.cols!=firstImage.cols)  cv::resize(image, image, firstImage.size());
@@ -54,7 +60,115 @@ void logException(const std::string& message) {
           logException(e.what());
               continue;
           }
+  } });
+
+
+  std::thread th2([&]() {for(size_t i = threadSize; i < threadSize*2; ++i)
+  {
+      count++;
+      try{
+      cv::Mat image = cv::imread(fileNames[i]);
+      if(image.rows!=firstImage.rows||image.cols!=firstImage.cols)  cv::resize(image, image, firstImage.size());
+      if(RoiSelect) { image = image(roi); }
+      cv::Mat mask = masking(image, hmin,hmax,smin,smax,vmin,vmax);
+      std::vector<int>dominantColor = getDominantColor(image, mask, compression);
+      image.release();
+      if(dominantColor[1]<sGray || dominantColor[2]<vGray )
+      {
+          grayImages.emplace_back(dominantColor, fileNames[i]);
+      }
+      else {
+          colorfulImages.emplace_back(dominantColor, fileNames[i]);
+      }
+
+
+  } catch (const cv::Exception& e) {
+              // Handle OpenCV exceptions
+              // Log the exception or continue processing other images
+           logException(e.what());
+              continue;
+          } catch (const std::exception& e) {
+              // Handle other exceptions
+              // Log the exception or continue processing other images
+          logException(e.what());
+              continue;
+          }
+  } });
+  std::thread th3([&]() {for (size_t i = threadSize* 2; i < threadSize*3; ++i)
+  {
+      count++;
+      try {
+          cv::Mat image = cv::imread(fileNames[i]);
+          if (image.rows != firstImage.rows || image.cols != firstImage.cols)  cv::resize(image, image, firstImage.size());
+          if (RoiSelect) { image = image(roi); }
+          cv::Mat mask = masking(image, hmin, hmax, smin, smax, vmin, vmax);
+          std::vector<int>dominantColor = getDominantColor(image, mask, compression);
+          image.release();
+          if (dominantColor[1] < sGray || dominantColor[2] < vGray)
+          {
+              grayImages.emplace_back(dominantColor, fileNames[i]);
+          }
+          else {
+              colorfulImages.emplace_back(dominantColor, fileNames[i]);
+          }
+
+
+      }
+      catch (const cv::Exception& e) {
+          // Handle OpenCV exceptions
+          // Log the exception or continue processing other images
+          logException(e.what());
+          continue;
+      }
+      catch (const std::exception& e) {
+          // Handle other exceptions
+          // Log the exception or continue processing other images
+          logException(e.what());
+          continue;
+      }
+  } });
+  std::thread th4([&]() {for (size_t i = threadSize * 3; i < fileNames.size(); ++i)
+  {
+      count++;
+      try {
+          cv::Mat image = cv::imread(fileNames[i]);
+          if (image.rows != firstImage.rows || image.cols != firstImage.cols)  cv::resize(image, image, firstImage.size());
+          if (RoiSelect) { image = image(roi); }
+          cv::Mat mask = masking(image, hmin, hmax, smin, smax, vmin, vmax);
+          std::vector<int>dominantColor = getDominantColor(image, mask, compression);
+          image.release();
+          if (dominantColor[1] < sGray || dominantColor[2] < vGray)
+          {
+              grayImages.emplace_back(dominantColor, fileNames[i]);
+          }
+          else {
+              colorfulImages.emplace_back(dominantColor, fileNames[i]);
+          }
+
+
+      }
+      catch (const cv::Exception& e) {
+          // Handle OpenCV exceptions
+          // Log the exception or continue processing other images
+          logException(e.what());
+          continue;
+      }
+      catch (const std::exception& e) {
+          // Handle other exceptions
+          // Log the exception or continue processing other images
+          logException(e.what());
+          continue;
+      }
+  } });
+  while (count != fileNames.size())
+  {
+      progress->setValue(count);
   }
+    th.join();
+    th2.join();
+    th3.join();
+    th4.join();
+
   exceptionLog.close();
 }
 

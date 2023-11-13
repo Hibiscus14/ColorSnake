@@ -1,13 +1,13 @@
 #include "mainwindow.h"
-#include<algorithm>
+#include <algorithm>
 
 
-comp1(const std::pair<std::vector<int>, std::string>& a, const std::pair<std::vector<int>, std::string>& b)
+bool comp1(const std::pair<std::vector<int>, std::string>& a, const std::pair<std::vector<int>, std::string>& b)
 {
 
     return a.first[0]<b.first[0];
 }
-comp2(const std::pair<std::vector<int>, std::string>& a, const std::pair<std::vector<int>, std::string>& b)
+bool comp2(const std::pair<std::vector<int>, std::string>& a, const std::pair<std::vector<int>, std::string>& b)
 {
 
     return a.first[2]<b.first[2];

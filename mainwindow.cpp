@@ -6,6 +6,8 @@
 #include <QStyle>
 #include <QMessageBox>
 #include <QToolTip>
+#include <QThread>
+
 
 
 QProgressBar* progress;
@@ -22,6 +24,23 @@ MainWindow::MainWindow(QWidget *parent)
  lightPalette.setColor(QPalette::ToolTipBase,Qt::white);
  lightPalette.setColor(QPalette::ToolTipText,Qt::black);
  lightPalette.setColor(QPalette::Highlight,QColor(255,148,121));
+ lightPalette.setColor(QPalette::Window, QColor(253, 253, 253));
+ lightPalette.setColor(QPalette::WindowText, Qt::black);
+ lightPalette.setColor(QPalette::Disabled, QPalette::WindowText, QColor(127, 127, 127));
+ lightPalette.setColor(QPalette::Base, QColor(255, 255, 255));
+ lightPalette.setColor(QPalette::AlternateBase, QColor(255, 255, 255));
+ lightPalette.setColor(QPalette::Text, Qt::black);
+ lightPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(127, 127, 127));
+ lightPalette.setColor(QPalette::Dark, QColor(35, 35, 35));
+ lightPalette.setColor(QPalette::Shadow, QColor(240, 240, 240));
+ lightPalette.setColor(QPalette::Button, QColor(253, 253, 253));
+ lightPalette.setColor(QPalette::ButtonText, Qt::black);
+ lightPalette.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(127, 127, 127));
+ lightPalette.setColor(QPalette::BrightText, Qt::red);
+ lightPalette.setColor(QPalette::Link, Qt::black);
+ lightPalette.setColor(QPalette::Disabled, QPalette::Highlight, QColor(80, 80, 80));
+ lightPalette.setColor(QPalette::HighlightedText, Qt::black);
+ lightPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, QColor(127, 127, 127));
 
 qApp->setPalette(lightPalette);
  QToolTip::setPalette(lightPalette);
@@ -43,7 +62,7 @@ qApp->setPalette(lightPalette);
 else {
        ui->label_3->setToolTip("This sliders limit the color-detection zone to achive \nbetter sorting results. It doesnt count the colour of pixels that are not saturated enough or not bright enough. \nRecomended settings: Sat 150 Val 50");
        ui->label_5->setToolTip("Compressing the image for faster but worse quality sorting");
-       ui->label_12->setToolTip("This sliders decide if pictures are considered balck or white and moved to the end of sorted images. If the picture is dark or bright enough it will be considered and moved to ''Black&white'' images\nRecomended settings: Sat 40 Val 40\nHere values are really dependant on images, try your own and see what works\nIf you dont want to sepperate B&W immages leave the sliders at 0");
+       ui->label_12->setToolTip("This sliders decide if pictures are considered balck or white and moved to the end of sorted images.\nIf the picture is dark or bright enough it will be considered and moved to ''Black&white'' images\nRecomended settings: Sat 40 Val 40\nHere values are really dependant on images, try your own and see what works\nIf you dont want to sepperate B&W immages leave the sliders at 0");
        ui->selectRoi->setToolTip("Limits the zone in which the sorting will work");
    }
 
@@ -124,6 +143,12 @@ void MainWindow::on_sortButton_clicked()
 
     SaveImages(colorfulImages, grayImages, outputFolder);
 
+    
+        for(int i=progress->value();i<=progress->maximum();i++)
+    { 
+        progress->setValue(i);
+        QThread::msleep(70);
+    }
 
     ui->sortButton->setEnabled(true);
 }
@@ -183,14 +208,33 @@ void MainWindow::on_themeButton_clicked()
         lightPalette.setColor(QPalette::ToolTipBase,Qt::white);
         lightPalette.setColor(QPalette::ToolTipText,Qt::black);
         lightPalette.setColor(QPalette::Highlight,QColor(255,148,121));
+        lightPalette.setColor(QPalette::ToolTipBase, Qt::white);
+        lightPalette.setColor(QPalette::ToolTipText, Qt::black);
+        lightPalette.setColor(QPalette::Highlight, QColor(255, 148, 121));
+        lightPalette.setColor(QPalette::Window, QColor(253, 253, 253));
+        lightPalette.setColor(QPalette::WindowText, Qt::black);
+        lightPalette.setColor(QPalette::Disabled, QPalette::WindowText, QColor(127, 127, 127));
+        lightPalette.setColor(QPalette::Base, QColor(255, 255, 255));
+        lightPalette.setColor(QPalette::AlternateBase, QColor(255, 255, 255));
+        lightPalette.setColor(QPalette::Text, Qt::black);
+        lightPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(127, 127, 127));
+        lightPalette.setColor(QPalette::Dark, QColor(35, 35, 35));
+        lightPalette.setColor(QPalette::Shadow, QColor(240, 240, 240));
+        lightPalette.setColor(QPalette::Button, QColor(253, 253, 253));
+        lightPalette.setColor(QPalette::ButtonText, Qt::black);
+        lightPalette.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(127, 127, 127));
+        lightPalette.setColor(QPalette::BrightText, Qt::red);
+        lightPalette.setColor(QPalette::Link, Qt::black);
+        lightPalette.setColor(QPalette::Disabled, QPalette::Highlight, QColor(80, 80, 80));
+        lightPalette.setColor(QPalette::HighlightedText, Qt::black);
+        lightPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, QColor(127, 127, 127));
         ui->progressBar->setPalette(lightPalette);
         ui->valMin->setPalette(lightPalette);
         ui->satMin->setPalette(lightPalette);
         ui->valMinGray->setPalette(lightPalette);
         ui->satMinGray->setPalette(lightPalette);
         ui->compressionSlider->setPalette(lightPalette);
-
-        qApp->setPalette(style()->standardPalette());
+        qApp->setPalette(lightPalette);
         QToolTip::setPalette(lightPalette);
 
         if(rus)
@@ -279,7 +323,6 @@ void MainWindow::on_infoButton_clicked()
         }
     }
     else {
-
         if(rus) {
     info.setText("<b>ColorSnake v1.0</b> by Hibiscus14<br><br>Поддержать автора:  <a href=\"https://www.tinkoff.ru/cf/YryNVeMVbg\" style=\"color: #db5c48;\">Тут!</a><br>Мои прочие штуки:  <a href=\"https://hibiscus-comms-eng.carrd.co/\" style=\"color: #db5c48;\">Тут!</a><br>Мой GitHub:  <a href=\https://github.com/Hibiscus14\ style=\"color: #db5c48;\">Тут!</a>");
 
