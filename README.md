@@ -1,7 +1,7 @@
 
 <body class="stackedit">
   <div class="stackedit__html"><p><img src="https://i.ibb.co/RbXHmZd/colorsnake.png" alt="enter image description here"></p>
-<h1 id="colorsnake-v1.0">ColorSnake v1.0!</h1>
+<h1 id="colorsnake-v1.0">ColorSnake v2.0!</h1>
 <p>ColorSnake is an image sorting programm that is writen
 fully on C++, using Qt creator and openCV, by a single developer.<br> <br>This program is
 here to make sorting your images by color an easy task.</p>
@@ -23,6 +23,10 @@ here to make sorting your images by color an easy task.</p>
 <li><strong>Custom zone</strong></li>
 </ul>
 <p>This feature allows you to select a custom zone that you want to look for in all the images. Its helpful for sorting portraits, collection photos, or anything that has the main thing you want to sort by in ± the same place. </p>
+<ul>
+<li><strong>Multithreading</strong></li>
+</ul>
+<p>Perform parallel processing in 4 threads during image operations.</p>
 <ul>
 <li><strong>Themes</strong></li>
 </ul>
